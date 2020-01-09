@@ -1,0 +1,65 @@
+Night
+Panorama
+Pro
+Live focus
+Photo
+Video
+Super Slow-mo
+Slow motion
+Hyperlapse
+Bixby Vision
+AR Emoji
+Settings
+Timer
+Ratio
+Quick view
+Switch camera
+Shutter
+Camera settings
+Camera settings
+Intelligent features
+Scene optimiser
+Add a Scene optimiser button to the preview screen. Tap this button to optimise your shots for the scene.
+Off
+Flaw detection
+Get notified when someone blinks or looks blurry in pictures. You'll also be notified if there are smudges on the camera lens.
+Off
+Pictures
+
+->Rear picture size
+Rear picture size
+Rear picture size
+4:3
+
+->Resolution
+4:3 (16 MP) 4608x3456--Ticked
+4:3 (8.0 MP) 3264x2448
+4:3 (16 MP) 4608x3456
+16:9
+
+->Resolution
+16:9 (12 MP) 4608x2592--Ticked
+16:9 (6.0 MP) 3264x1836
+16:9 (12 MP) 4608x2592
+Full
+18.5:9 (10 MP) 4608x2240
+1:1
+
+->Resolution
+1:1 (12 MP) 3456x3456--Ticked
+1:1 (6.0 MP) 2448x2448
+1:1 (12 MP) 3456x3456
+1:1 (12 MP)
+
+->Front picture size
+Front picture size
+Front picture size
+4:3
+
+->Resolution
+4:3 (24 MP) 5664x4248--Ticked
+4:3 (12 MP) 4032x3024
+4:3 (24 MP) 5664x4248
+16:9
+
+->Resolution

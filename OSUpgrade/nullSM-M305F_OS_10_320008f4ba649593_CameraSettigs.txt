@@ -1,0 +1,68 @@
+PANORAMA
+PRO
+LIVE FOCUS
+PHOTO
+VIDEO
+CONTINUOUS SHOT
+Sticker
+Go to Settings
+View pictures and videos
+Switch to front camera
+Take picture
+Camera settings
+Camera settings
+Intelligent features
+Scene optimiser
+Add a Scene optimiser button to the preview screen. Tap this button to optimise your shots for the scene.
+Off
+Pictures
+Rear picture size
+16:9 (3.7 MP)
+
+->Front picture size
+4:3 (16 MP) 4608x3456--Ticked
+16:9 (12 MP) 4608x2592
+19.5:9 (9.8 MP) 4608x2128
+1:1 (12 MP) 3456x3456
+4:3 (16 MP)
+Videos
+
+->Rear video size
+Rear video size
+Rear video size
+16:9
+
+->Resolution
+FHD 1920x1080--Ticked
+HD 1280x720
+FHD 1920x1080
+Full
+19.5:9 2336x1080
+1:1
+1:1 1072x1072
+16:9 FHD 1920x1080
+
+->Front video size
+Front video size
+Front video size
+16:9
+
+->Resolution
+FHD 1920x1080--Ticked
+HD 1280x720
+FHD 1920x1080
+Full
+19.5:9 2336x1080
+1:1
+1:1 1072x1072
+16:9 FHD 1920x1080
+
+->High efficiency video
+Record videos in HEVC format to save space. You may not be able to play HEVC videos on other devices or share them online.
+Off
+Useful features
+HDR (rich tone)
+Off
+Off
+
+->Pictures as previewed (Selfie)
