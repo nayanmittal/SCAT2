@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="11163958" started-at="2020-01-08T03:47:48Z" finished-at="2020-01-08T06:53:52Z">
+  <suite name="Default suite" duration-ms="406545" started-at="2020-01-09T14:01:02Z" finished-at="2020-01-09T14:07:48Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="11163958" started-at="2020-01-08T03:47:48Z" finished-at="2020-01-08T06:53:52Z">
+    <test name="Default test" duration-ms="406545" started-at="2020-01-09T14:01:02Z" finished-at="2020-01-09T14:07:48Z">
       <class name="InnovativeProduct.OSUpgrade.SettingTest10">
-        <test-method status="PASS" signature="Test2()[pri:0, instance:InnovativeProduct.OSUpgrade.SettingTest10@4b4523f8]" name="Test2" duration-ms="15" started-at="2020-01-08T03:47:48Z" finished-at="2020-01-08T03:47:48Z">
+        <test-method status="PASS" signature="Test2()[pri:0, instance:InnovativeProduct.OSUpgrade.SettingTest10@4b4523f8]" name="Test2" duration-ms="10" started-at="2020-01-09T14:01:02Z" finished-at="2020-01-09T14:01:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Test2 -->
-        <test-method status="PASS" signature="enterText()[pri:0, instance:InnovativeProduct.OSUpgrade.SettingTest10@4b4523f8]" name="enterText" duration-ms="11163906" started-at="2020-01-08T03:47:48Z" finished-at="2020-01-08T06:53:52Z">
+        <test-method status="PASS" signature="enterText()[pri:0, instance:InnovativeProduct.OSUpgrade.SettingTest10@4b4523f8]" name="enterText" duration-ms="406503" started-at="2020-01-09T14:01:02Z" finished-at="2020-01-09T14:07:48Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- enterText -->

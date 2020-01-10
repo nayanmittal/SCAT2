@@ -57,7 +57,7 @@ import io.appium.java_client.touch.offset.PointOption;
  * [10-10][Actual code of 1oth version in 11]Depth 4,changed whilr(scroll()) method.,Updated skip menu.
  * Create a static variable & store the size of s3 in it. and put a conditon inside while(scroll) loop that if s3size==0 then break;setting s3size to 100(random value) while coming back. 
  * Keeping some menu till depth=3 only[created menu1,menu2,menu3 for it.].Handling done to avoid null pointer.Added time when not going in depth.If issue faced with ok then now update its logic.Updated AcceptPermission & added at one more places.
- * Updated logic for [On/Off case]
+ * Updated logic for [On/Off case],updated delete duplicate logic for timer case[dynamic element],created depthChange method, added waitForPageToLoadMethod.
  */
 
 public class SettingTest10 extends BaseSetting2
@@ -91,7 +91,7 @@ public class SettingTest10 extends BaseSetting2
 	 String menu1="",menu2="",menu3="";//"Biometrics and security",
 	 //String[] skipMenu={"Hide apps","Game Launcher","Google Location History","Clock style","Contact information","Swipe","Pattern","PIN","Password","None","Intelligent Scan","Face","Iris","Fingerprints","Full screen apps","Font style","Developer options","Apps","Mobile Hotspot","Bluetooth tethering","USB tethering","Download and install","System WebView licences","Open source licences","Samsung legal","Privacy Policy","Safety information","Security update"};
 	 //"Tips and user manual",,"Apps","Privacy","Advanced features","Digital wellbeing","Device care","Google","Display" , "Connections","Sounds and vibration","Notifications","Display","Wallpaper","Accounts and backup","Lock screen","Biometrics and security","Privacy","Lock screen",
-	 String[] skipMenu={"Notifications" ,"Biometrics and security","Wallpaper","Connections","Sounds and vibration","Notifications","Display","Lock screen","Privacy","Location","Wallpapers and themes","Wallpaper and themes","User Manual","Contact us","Themes","Biometrics security patch","Auto-fill service from Google","Hide apps","Game Launcher","Google Location History",
+	 String[] skipMenu={"Google","Device care","Apps","Software update","Notifications" ,"Biometrics and security","Wallpaper","Connections","Sounds and vibration","Notifications","Display","Lock screen","Location","Accounts and backup","Advanced features","Digital Wellbeing and parental controls","General management","Accessibility","Wallpapers and themes","Wallpaper and themes","User Manual","Contact us","Themes","Biometrics security patch","Auto-fill service from Google","Hide apps","Game Launcher","Google Location History",
 			 "Google Location Sharing","Clock style","Contact information","Swipe","Pattern","PIN","Password","None","Intelligent Scan","Face","Iris","Fingerprints","Full screen apps","Font style","Developer options",
 			 "Mobile Hotspot","Bluetooth tethering","USB tethering","Download and install","Google legal","System WebView licences","Open source licences","Samsung legal","Privacy Policy","Safety information","Security update",
 			 "App preview messages","Device phone number","Firebase App Indexing","Mobile data usage","Show notification icons","Mobile data only apps","Mobile data usage","Google Play Store","Android security patch level","Back up data",
@@ -110,7 +110,7 @@ public class SettingTest10 extends BaseSetting2
 			//ff=new File("D:\\Drive E\\automation tool\\OSUpgrade\\src\\main\\java\\Resources\\MenuTreeSettigsFormated.txt");
 			//ffos=new FileOutputStream(ff);
 		
-			fx=new File("C:\\Users\\nayan.mittal\\Desktop\\Data\\MenuTreeSetting_A715_4.xlsx");
+			fx=new File("C:\\Users\\nayan.mittal\\Desktop\\Data\\MenuTreeSetting_A015_4.xlsx");
 			fxos=new FileOutputStream(fx);
 		
 			book=new XSSFWorkbook();
@@ -166,16 +166,9 @@ public class SettingTest10 extends BaseSetting2
 					for(AndroidElement aen:s2)
 					{
 						String nlText=aen.getText().toString();
-						/*
-						if("android.widget.ImageView".equalsIgnoreCase(aen.getAttribute("className")))
-							nlText="image";
-						else if("android.widget.Button".equalsIgnoreCase(aen.getAttribute("className")))
-							nlText="button";
-						*/	
-					//ae.getAttribute("className")
 						if(flag==0)
 						{
-							Previous2=nlText;
+							Previous2=nlText;	
 							i++;
 							flag=1;
 							continue;
@@ -189,12 +182,13 @@ public class SettingTest10 extends BaseSetting2
 		
 						}
 				
-						if(Previous2.equalsIgnoreCase(SSS))
-						{
+						if(Previous2.equalsIgnoreCase(SSS) || SSS.split(":").length==3)
+						{		
 		
-								if(Previous.equalsIgnoreCase(SS))
+								if(Previous.equalsIgnoreCase(SS) || SS.split(":").length==3)
 								{
-									if(nlText.equalsIgnoreCase(ss))
+								
+									if(nlText.equalsIgnoreCase(ss) || ss.split(":").length==3)
 									{
 										i++;
 										System.out.println("New List 1st Element matched is  "+Previous2);
@@ -268,7 +262,7 @@ public class SettingTest10 extends BaseSetting2
 				    	 //	s2.add(newList.get(tsize-1));
 				    	 //Collections.copy(s3,s2);
 				    	 s3.addAll(s2);
-				    	 System.out.println("There is no duplicate elements [last 2]  ");
+				    	 System.out.println("There is no duplicate elements [last 3]  ");
 				    	 }
 				    	 s3size=s3.size();
 				     }
@@ -334,6 +328,7 @@ public class SettingTest10 extends BaseSetting2
 		    		if(!cond && ae.isEnabled() && ("More options".equalsIgnoreCase(ae.getAttribute("contentDescription")) || "android:id/title".equalsIgnoreCase(ae.getAttribute("resourceId"))))		
 				    {
 		    		ae.click();
+		    		
 		       	 	//int index=s2.indexOf(ae);
 		    		//TouchAction t=new TouchAction(driver);
 		    		//t.tap(tapOptions().withElement(element(ae))).perform();
@@ -345,8 +340,8 @@ public class SettingTest10 extends BaseSetting2
 		    			//continue;
 		    		pressOk();
 		        	pressLater();
-		       
-		        	acceptPermissions();
+		    	    acceptPermissions();
+		    		waitForPageToLoad();
 					//going inside only if its clickable (size of list changes).list2 is the list after click
 		       		java.util.List<AndroidElement> list2=new ArrayList<AndroidElement>();
 					try {
@@ -434,7 +429,8 @@ public class SettingTest10 extends BaseSetting2
 						    		}
 									else
 									{
-										System.out.println("Depth changed  ");
+									depthChanged();	
+									/*	System.out.println("Depth changed  ");
 									depth++;
 									//Utilities u=new Utilities(driver);l
 									//u.subMenu(fos);
@@ -454,56 +450,22 @@ public class SettingTest10 extends BaseSetting2
 									System.out.println("came back "); 
 									s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
 									depth--;
+									*/
+										
 									}
 								}								
 								else
 								{
-									System.out.println("Depth changed  ");
-								depth++;
-								//Utilities u=new Utilities(driver);l
-								//u.subMenu(fos);
-								//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
-										if(depth<4)
-										{	
-										SSS="NNNNN";	
-										SS="PPPPP";
-										ss="TTTTT";
-										count=0;
-										scroll_count=0;
-										Menu1();
-										scroll_count=0;
-										}		
-								driver.pressKey(new KeyEvent(AndroidKey.BACK));	
-								pressCancel(); // sometime popup comes while coming back from wallpepers and themes menu.
-								System.out.println("came back "); 
-								s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
-								depth--;
+									depthChanged();
+
 								}
 							}
 							else
 							{
 									if(tsize!=list2.size())	
 									{
-										System.out.println("Depth changed  ");
-									depth++;
-									//Utilities u=new Utilities(driver);l
-									//u.subMenu(fos);
-									//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
-									if(depth<4)
-									{	
-										SSS="NNNNN";
-										SS="PPPPP";
-										ss="TTTTT";
-										count=0;
-										scroll_count=0;
-										Menu1();
-										scroll_count=0;
-									}		
-									driver.pressKey(new KeyEvent(AndroidKey.BACK));	
-									pressCancel();
-									System.out.println("came back ");
-									s3size=100;
-									depth--;
+										depthChanged();
+		
 									}
 									else
 									{
@@ -526,7 +488,7 @@ public class SettingTest10 extends BaseSetting2
 		    		//it will come here when attribute id is not as mentioned in else if condition.
 		    		//System.out.println("Not clickable  "+ae.getText());
 		    		}
-		    		System.out.println("Depth is "+depth);
+		    		//System.out.println("Depth is "+depth);
 		    	}
 		    catch(Exception e)
 		    {
@@ -633,7 +595,37 @@ public class SettingTest10 extends BaseSetting2
 */
 
 
+	public void depthChanged()
+	{
+		try 
+		{
+				System.out.println("Depth changed  ");
+				depth++;
+				//Utilities u=new Utilities(driver);l
+				//u.subMenu(fos);
+				//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
+						if(depth<4)
+						{	
+						SSS="NNNNN";	
+						SS="PPPPP";
+						ss="TTTTT";
+						count=0;
+						scroll_count=0;
+						Menu1();
+						scroll_count=0;
+						}		
+				driver.pressKey(new KeyEvent(AndroidKey.BACK));	
+				pressCancel(); // sometime popup comes while coming back from wallpepers and themes menu.
+				System.out.println("came back "); 
+				s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
+				depth--;
+		}
+		catch (Exception e)
+		{
 
+		}
+	}
+	
 	public boolean swipeDown()
 	{
 		try
@@ -722,6 +714,30 @@ public class SettingTest10 extends BaseSetting2
 		
 	}
 	
+	public void waitForPageToLoad() throws InterruptedException
+	{
+		int i=0;
+		if(driver.findElementsByXPath("//*[@text='Stop']").size()>0)
+		{
+			System.out.println("inside browser   ");
+			while(true)
+			{
+				i++;
+				Thread.sleep(2000);
+				if(driver.findElementsByXPath("//*[@text='Refresh']").size()>0)
+					break;
+				if(i==5)
+					break;
+			}
+		}
+		else if(driver.findElementsById("com.sec.android.app.sbrowser:id/toolbar").size()>0)
+			{
+			System.out.println("inside browser   ");
+			Thread.sleep(5000);
+			}
+
+	}
+	
 	public int pressOk()
 	{
 	try {
@@ -777,7 +793,7 @@ public class SettingTest10 extends BaseSetting2
 			}
 		catch(Exception e)
 		{
-			System.out.println("CANCEL exception");
+			//System.out.println("CANCEL exception");
 		}
 		
 		try {driver.findElementByXPath("//*[@text='Cancel']").click();

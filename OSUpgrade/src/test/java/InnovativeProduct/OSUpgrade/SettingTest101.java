@@ -53,7 +53,9 @@ import io.appium.java_client.touch.offset.PointOption;
  * made printFunction().,added code in printF function without checking.
  * [9-99] changing it to work as per multithreading.[99-100]while removing duplicate,Now comparing 3 elements.,added skipMenu, added details of model and os in file name and in row 0.
  * [100-101] Depth 4 code. 
- * 
+ * Create a static variable & store the size of s3 in it. and put a conditon inside while(scroll) loop that if s3size==0 then break;setting s3size to 100(random value) while coming back. 
+ * Keeping some menu till depth=3 only[created menu1,menu2,menu3 for it.].Handling done to avoid null pointer.Added time when not going in depth.If issue faced with ok then now update its logic.Updated AcceptPermission & added at one more places.
+ * Updated logic for [On/Off case],updated delete duplicate logic for timer case[dynamic element],created depthChange method, added waitForPageToLoadMethod. 
  */
 
 public class SettingTest101 
@@ -86,8 +88,8 @@ public class SettingTest101
 	 String menu1="",menu2="",menu3="";//"Biometrics and security",
 	
 	 //String[] skipMenu={"Hide apps","Game Launcher","Google Location History","Clock style","Contact information","Swipe","Pattern","PIN","Password","None","Intelligent Scan","Face","Iris","Fingerprints","Full screen apps","Font style","Developer options","Apps","Mobile Hotspot","Bluetooth tethering","USB tethering","Download and install","System WebView licences","Open source licences","Samsung legal","Privacy Policy","Safety information","Security update"};
-	//,"Contact us","Tips and user manual",
-	 String[] skipMenu={"Notifications" ,"Biometrics and security","Wallpaper","Connections","Sounds and vibration","Notifications","Display","Lock screen","Privacy","Location","Wallpapers and themes","Wallpaper and themes","User Manual","Contact us","Themes","Biometrics security patch","Auto-fill service from Google","Hide apps","Game Launcher","Google Location History",
+	//,"Contact us","Tips and user manual","Notifications" ,"Biometrics and security","Wallpaper","Connections","Sounds and vibration","Notifications","Display","Lock screen","Privacy","Location",
+	 String[] skipMenu={"Wallpapers and themes","Wallpaper and themes","User Manual","Contact us","Themes","Biometrics security patch","Auto-fill service from Google","Hide apps","Game Launcher","Google Location History",
 			 "Google Location Sharing","Clock style","Contact information","Swipe","Pattern","PIN","Password","None","Intelligent Scan","Face","Iris","Fingerprints","Full screen apps","Font style","Developer options",
 			 "Mobile Hotspot","Bluetooth tethering","USB tethering","Download and install","Google legal","System WebView licences","Open source licences","Samsung legal","Privacy Policy","Safety information","Security update",
 			 "App preview messages","Device phone number","Firebase App Indexing","Mobile data usage","Show notification icons","Mobile data only apps","Mobile data usage","Google Play Store","Android security patch level","Back up data",
@@ -220,16 +222,19 @@ public class SettingTest101
 							continue;
 		
 						}
-				
-						if(Previous2.equalsIgnoreCase(SSS))
-						{
-						//System.out.println("New List 1st Element matched is  "+Previous);
-								if(Previous.equalsIgnoreCase(SS))
+						// Condition added to make it true when string cantain dynamic element[timer]
+						if(Previous2.equalsIgnoreCase(SSS) || SSS.split(":").length==3)
+						{		
+		
+								if(Previous.equalsIgnoreCase(SS) || SS.split(":").length==3)
 								{
-									if(nlText.equalsIgnoreCase(ss))
+								
+									if(nlText.equalsIgnoreCase(ss) || ss.split(":").length==3)
 									{
 										i++;
-										//System.out.println("New List 2nd Element matched is  "+nlText);
+										System.out.println("New List 1st Element matched is  "+Previous2);
+										System.out.println("New List 2nd Element matched is  "+Previous);
+										System.out.println("New List 3rd Element matched is  "+nlText);
 										matcher=true;
 										break;
 									}
@@ -370,6 +375,7 @@ public class SettingTest101
 		    		pressOk();
 		        	pressLater();
 		           	acceptPermissions();
+		    		waitForPageToLoad();
 					//going inside only if its clickable (size of list changes).list2 is the list after click
 		       		java.util.List<AndroidElement> list2=new ArrayList<AndroidElement>();
 					try {
@@ -470,7 +476,8 @@ public class SettingTest101
 				    		}
 							else
 							{
-								System.out.println("Depth changed  ");
+								depthChanged();
+							/*	System.out.println("Depth changed  ");
 							depth++;
 							//Utilities u=new Utilities(driver);l
 							//u.subMenu(fos);
@@ -490,56 +497,19 @@ public class SettingTest101
 							System.out.println("came back "); 
 							s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
 							depth--;
+							*/
 							}
 						}								
 						else
 						{
-							System.out.println("Depth changed  ");
-						depth++;
-						//Utilities u=new Utilities(driver);l
-						//u.subMenu(fos);
-						//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
-								if(depth<4)
-								{	
-								SSS="NNNNN";	
-								SS="PPPPP";
-								ss="TTTTT";
-								count=0;
-								scroll_count=0;
-								Menu1();
-								scroll_count=0;
-								}		
-						driver.pressKey(new KeyEvent(AndroidKey.BACK));	
-						pressCancel(); // sometime popup comes while coming back from wallpepers and themes menu.
-						System.out.println("came back "); 
-						s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
-						depth--;
+							depthChanged();
 						}
 					}
 					else
 					{
 							if(tsize!=list2.size())	
 							{
-								System.out.println("Depth changed  ");
-							depth++;
-							//Utilities u=new Utilities(driver);l
-							//u.subMenu(fos);
-							//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
-							if(depth<4)
-							{	
-								SSS="NNNNN";
-								SS="PPPPP";
-								ss="TTTTT";
-								count=0;
-								scroll_count=0;
-								Menu1();
-								scroll_count=0;
-							}		
-							driver.pressKey(new KeyEvent(AndroidKey.BACK));	
-							pressCancel();
-							System.out.println("came back ");
-							s3size=100;
-							depth--;
+								depthChanged();
 							}
 							else
 							{
@@ -667,7 +637,36 @@ public class SettingTest101
 
 */
 
+	public void depthChanged()
+	{
+		try 
+		{
+				System.out.println("Depth changed  ");
+				depth++;
+				//Utilities u=new Utilities(driver);l
+				//u.subMenu(fos);
+				//go to 3rd depth only[0,1,2] where 0th depth is camera setting page. 
+						if(depth<4)
+						{	
+						SSS="NNNNN";	
+						SS="PPPPP";
+						ss="TTTTT";
+						count=0;
+						scroll_count=0;
+						Menu1();
+						scroll_count=0;
+						}		
+				driver.pressKey(new KeyEvent(AndroidKey.BACK));	
+				pressCancel(); // sometime popup comes while coming back from wallpepers and themes menu.
+				System.out.println("came back "); 
+				s3size=100; // settimg it to a random value while coming back so that it don't break previous loop. 
+				depth--;
+		}
+		catch (Exception e)
+		{
 
+		}
+	}
 
 	public boolean swipeDown()
 	{
@@ -755,6 +754,29 @@ public class SettingTest101
 		
 	
 		
+	}
+	
+	public void waitForPageToLoad() throws InterruptedException
+	{
+		int i=0;
+		if(driver.findElementsByXPath("//*[@text='Stop']").size()>0)
+		{
+			System.out.println("inside browser   ");
+			while(true)
+			{
+				i++;
+				Thread.sleep(2000);
+				if(driver.findElementsByXPath("//*[@text='Refresh']").size()>0)
+					break;
+				if(i==5)
+					break;
+			}
+		}
+		else if(driver.findElementsById("com.sec.android.app.sbrowser:id/toolbar").size()>0) {
+			System.out.println("inside browser   ");
+			Thread.sleep(5000);
+			}
+
 	}
 	
 	public int pressOk()
