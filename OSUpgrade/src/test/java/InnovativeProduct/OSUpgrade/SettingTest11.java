@@ -34,7 +34,7 @@ import io.appium.java_client.android.nativekey.KeyEvent;
 //import android.app.AlertDialog;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-
+//
 
 /*Handled message popup like cancle,mode description ,accept permission,click ok.
  * [4-5] Adding classes like more options in wifi[content-desc : More options]
